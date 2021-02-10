@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {Component} from 'react';
 import firebase from 'firebase';
 // import "firebase/auth"
 const firebaseConfig = {
@@ -22,17 +22,35 @@ import Landing from "./components/auth/Landing";
 import SignUp from "./components/auth/SignUp";
 
 const Stack = createStackNavigator();
+import React, { Component } from 'react'
 
-export default function App() {
-  return (
-    <NavigationContainer initialRouteName="Landing">
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" component={Landing} options={{
-          headerShown: false,
-        }} />
-        <Stack.Screen name="Sign Up" component={SignUp} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+export class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loaded: false,
+    }
+  }
+
+  componentDidMount(){
+    
+  }
+  render() {
+    return (
+      <NavigationContainer initialRouteName="Landing">
+        <Stack.Navigator>
+          <Stack.Screen name="Landing" component={Landing} options={{
+            headerShown: false,
+          }} />
+          <Stack.Screen name="Sign Up" component={SignUp} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
+
+export default App
+
+
 
