@@ -9,17 +9,16 @@ export class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            name: "",
         }
 
         this.onSignUp = this.onSignUp.bind(this)
     }
 
-    onSignUp = () => {
-        const { email, password, name } = this.state;
+    onSignIn = () => {
+        const { email, password } = this.state;
         firebase.
         auth().
-        createUserWithEmailAndPassword(email, password)
+        signInWithEmailAndPassword(email, password)
         .then((result)=>{
             console.log(result);
         })
@@ -39,16 +38,12 @@ export class Login extends Component {
                     secureTextEntry = {true} 
                     onChangeText={(password) => this.setState({password})}
                 />
-                <TextInput 
-                    placeholder="Enter name" 
-                    onChangeText={(name) => this.setState({name})}
-                />
-                <Button title="Sign Up"
-                onPress={()=> this.onSignUp()}
+                <Button title="Sign In"
+                onPress={()=> this.onSignIn()}
                 />
             </View>
         )
     }
 }
 
-export default SignUp
+export default Login
