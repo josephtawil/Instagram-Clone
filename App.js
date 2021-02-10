@@ -22,7 +22,6 @@ import Landing from "./components/auth/Landing";
 import SignUp from "./components/auth/SignUp";
 
 const Stack = createStackNavigator();
-import React, { Component } from 'react'
 
 export class App extends Component {
   constructor(props) {
