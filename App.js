@@ -60,6 +60,7 @@ export class App extends Component {
         </View>
       )
     }
+    if(!loggedIn){
     return (
       <NavigationContainer initialRouteName="Landing">
         <Stack.Navigator>
@@ -70,6 +71,13 @@ export class App extends Component {
         </Stack.Navigator>
       </NavigationContainer>
     );
+    }
+
+    return(
+      <View>
+        <Text style={styles.loader}>User is Logged In</Text>
+      </View>
+    )
   }
 }
 
