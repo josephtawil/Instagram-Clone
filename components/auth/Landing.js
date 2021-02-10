@@ -5,7 +5,10 @@ export default function Landing({navigation}) {
     return (
         <View style={styles.input}>
             <Button title="Sign Up" 
-            onPress={()=> navigation.navigate("Home")}
+            onPress={()=> navigation.navigate("Sign Up")}
+            />
+             <Button title="Login" 
+            onPress={()=> navigation.navigate("Login")}
             />
         </View>
     )
