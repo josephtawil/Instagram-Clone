@@ -30,13 +30,36 @@ export class App extends Component {
 
     this.state = {
       loaded: false,
+      loggedIn: false, 
     }
   }
 
   componentDidMount(){
-    
+    firebase.auth().onAuthStateChanged((user)=>{
+      if(!user){
+        this.setState({
+          loggedIn: false,
+          loaded: true
+        })
+      }
+      else{
+        this.setState({
+          loggedIn: true,
+          loaded: true
+        })
+      }
+    })
   }
   render() {
+    const {loggedIn, loaded} = this.state;
+
+    if(!loaded){
+      return(
+        <View>
+          <Text style={styles.loader}>Loading</Text>
+        </View>
+      )
+    }
     return (
       <NavigationContainer initialRouteName="Landing">
         <Stack.Navigator>
@@ -50,6 +73,12 @@ export class App extends Component {
   }
 }
 
+const styles = StyleSheet.create({
+  loader: {
+    flex: 1,
+    justifyContent: 'center'
+  }
+})
 export default App
 
 
