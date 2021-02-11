@@ -28,7 +28,7 @@ import Landing from "./components/auth/Landing";
 import SignUp from "./components/auth/SignUp";
 import Login from "./components/auth/Login";
 import MainScreen from './components/Main';
-
+import AddScreen from "./components/main/Add";
 
 const Stack = createStackNavigator();
 
@@ -89,6 +89,7 @@ export class App extends Component {
           <Stack.Screen name="Main" component={MainScreen} options={{
             headerShown: false,
           }} />
+               <Stack.Screen name="Add" component={AddScreen} />
         </Stack.Navigator>
       </NavigationContainer>
        
