@@ -4,19 +4,21 @@ import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchUser} from '../components/redux/actions/index';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+const Tab = createBottomTabNavigator();
+
+import Feed from './main/Feed';
 
 export class Main extends Component {
     componentDidMount(){
         this.props.fetchUser();
     }
     render() {
-        const {currentUser} = this.props
-
-        console.log(currentUser);
         return (
-            <View>
-            <Text>User is Logged In</Text>
-          </View>
+            <Tab.Navigator>
+            <Tab.Screen name="Feed" component={Feed} />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
+          </Tab.Navigator>
         )
     }
 }

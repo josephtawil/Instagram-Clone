@@ -26,6 +26,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Landing from "./components/auth/Landing";
 import SignUp from "./components/auth/SignUp";
+import Login from "./components/auth/Login";
 import MainScreen from './components/Main';
 
 
@@ -75,6 +76,7 @@ export class App extends Component {
             headerShown: false,
           }} />
           <Stack.Screen name="Sign Up" component={SignUp} />
+          <Stack.Screen name="Login" component={Login}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -82,7 +84,14 @@ export class App extends Component {
 
     return(
       <Provider store={store}>
-          <MainScreen/>
+          <NavigationContainer initialRouteName="Main">
+        <Stack.Navigator>
+          <Stack.Screen name="Main" component={MainScreen} options={{
+            headerShown: false,
+          }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+       
       </Provider>
         
     )
