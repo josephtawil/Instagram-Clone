@@ -21,6 +21,12 @@ export class SignUp extends Component {
         auth().
         createUserWithEmailAndPassword(email, password)
         .then((result)=>{
+            //being used to create a collection of users in firestore
+            firebase.firestore().collection("users")
+            .doc(firebase.auth().currentUser.uid)
+            .set({
+                name, email
+            })
             console.log(result);
         })
         .catch((error)=>{
