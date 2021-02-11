@@ -1,6 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
 import firebase from 'firebase';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import rootReducer from './components/redux/reducers';
+import thunk from 'redux-thunk';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 // import "firebase/auth"
 const firebaseConfig = {
   apiKey: "AIzaSyCu_FOsSisTqZEppxQDcLw8DKF2DYbRouA",
@@ -20,6 +26,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Landing from "./components/auth/Landing";
 import SignUp from "./components/auth/SignUp";
+import MainScreen from './components/Main';
+
 
 const Stack = createStackNavigator();
 
@@ -73,9 +81,7 @@ export class App extends Component {
     }
 
     return(
-      <View>
-        <Text style={styles.loader}>User is Logged In</Text>
-      </View>
+        <MainScreen/>
     )
   }
 }
