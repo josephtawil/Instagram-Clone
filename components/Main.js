@@ -4,8 +4,11 @@ import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchUser} from '../components/redux/actions/index';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const Tab = createBottomTabNavigator();
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// const Tab = createBottomTabNavigator();
+//we're using a new package here
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+const Tab = createMaterialBottomTabNavigator();
    //we use an empty screen component as a way of not getting an error so when clicked on this tab it will navigate
    //to the AddScreen component in App.js
 const EmptyScreen = () => {
@@ -22,7 +25,7 @@ export class Main extends Component {
     }
     render() {
         return (
-            <Tab.Navigator initialRouteName="Feed">
+            <Tab.Navigator initialRouteName="Feed" labeled={false}>
             <Tab.Screen name="Feed" component={Feed} 
             options = {{
                 tabBarIcon: ({color, size})=>(
