@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { Camera } from 'expo-camera';
 
 export default function App() {
@@ -21,21 +21,34 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+    <View style={styles.cameraContainer}>
+      <Camera style={styles.fixedRatio} ratio={'1:1'} type={type}/>
     </View>
+    <Button
+    title="Flip Image"
+    onPress={() => {
+      setType(
+        type === Camera.Constants.Type.back
+          ? Camera.Constants.Type.front
+          : Camera.Constants.Type.back
+      );
+    }}>
+    
+  </Button>
+  </View>
   );
 }
+const styles = StyleSheet.create({
+  loader: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  cameraContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  fixedRatio:{
+    flex: 1,
+    aspectRatio: 1
+  }
+})
