@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Button, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
+  const [camera, setCamera] = useState(null);
+  const [image, setImage] = useState();
   const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
@@ -13,6 +15,13 @@ export default function App() {
     })();
   }, []);
 
+  const takePicture = async () => {
+      if(camera){
+        const data = await camera.takePictureAsync(null);
+        console.log(data.uri);
+        setImage(data.uri);
+      }
+  }
   if (hasPermission === null) {
     return <View />;
   }
@@ -22,7 +31,7 @@ export default function App() {
   return (
     <View style={styles.container}>
     <View style={styles.cameraContainer}>
-      <Camera style={styles.fixedRatio} ratio={'1:1'} type={type}/>
+      <Camera ref={ref => setCamera(ref)} style={styles.fixedRatio} ratio={'1:1'} type={type}/>
     </View>
     <Button
     title="Flip Image"
@@ -35,13 +44,16 @@ export default function App() {
     }}>
     
   </Button>
+  <Button title="Take Picture" onPress={() => {
+    takePicture();
+  }}/>
+  {image && <Image  source={{uri: image}} style={styles.images}/>}
   </View>
   );
 }
 const styles = StyleSheet.create({
-  loader: {
+  container: {
     flex: 1,
-    justifyContent: 'center'
   },
   cameraContainer: {
     flex: 1,
@@ -50,5 +62,9 @@ const styles = StyleSheet.create({
   fixedRatio:{
     flex: 1,
     aspectRatio: 1
+  },
+  images: {
+    flex: 1,
+
   }
 })
