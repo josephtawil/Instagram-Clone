@@ -30,7 +30,7 @@ import SignUp from "./components/auth/SignUp";
 import Login from "./components/auth/Login";
 import MainScreen from './components/Main';
 import AddScreen from "./components/main/Add";
-
+import SaveScreen from "./components/main/SaveImage";
 const Stack = createStackNavigator();
 
 export class App extends Component {
@@ -91,6 +91,7 @@ export class App extends Component {
             headerShown: false,
           }} />
                <Stack.Screen name="Add" component={AddScreen} />
+               <Stack.Screen name="Save" component={SaveScreen} />
         </Stack.Navigator>
       </NavigationContainer>
        
