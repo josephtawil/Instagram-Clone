@@ -10,13 +10,32 @@ export default function SaveImage(props) {
 
     const uploadImage = async () => {
         const uri = props.route.params.image;
+        const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}`;
         const response = await fetch(uri);
         const blob = await response.blob();
 
         const task = firebase
         .storage()
         .ref()
-        .child(`post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}`)
+        .child(childPath)
+        .put(blob);
+
+        const taskProgress = snapshot => {
+            console.log(`transfered: ${snapshot.bytesTransferred}`);
+        }
+
+        const taskCompleted = snapshot => {
+            snapshot.ref.getDownloadURL().then((snapshot)=>{
+                console.log(snapshot);
+            })
+        }
+
+        const taskError = snapshot => {
+            console.log(snapshot);
+        }
+
+        task.on("state_changed", taskProgress, taskCompleted, taskError);
+        
     }
 
     return (
