@@ -1,12 +1,24 @@
-import React from 'react'
-import {SafeAreaView, View, Text, Image} from 'react-native';
+import React,{ useState} from 'react'
+import {SafeAreaView,Button, View, Text, TextInput, Image} from 'react-native';
 
 export default function SaveImage(props) {
-    console.log(props)
+    console.log(props.route.params.image)
+
+    const [caption, setCaption] = useState('');
 
     return (
-        <View>
-            <Text title="Save"/>
+        <View style={styles.image}>
+            <Image source={{uri: props.route.params.image}}/>
+            <TextInput placeholder="Write a caption ..."
+                onChangeText={(caption)=> setCaption(caption)}
+            />
+            <Button title="Save"/>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    image:{
+        flex: 1,
+    }
+})
