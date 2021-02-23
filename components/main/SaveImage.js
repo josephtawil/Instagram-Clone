@@ -1,9 +1,9 @@
 import React,{ useState} from 'react'
-import {SafeAreaView,Button, View, Text, TextInput, Image} from 'react-native';
+import {SafeAreaView, StyleSheet, Button, View, Text, TextInput, Image} from 'react-native';
 import firebase from 'firebase';
 require("firebase/firebase-storage");
 
-export default function SaveImage(props) {
+export default function SaveImage(props, {navigation}) {
     console.log(props.route.params.image)
 
     const [caption, setCaption] = useState('');
@@ -24,8 +24,9 @@ export default function SaveImage(props) {
             console.log(`transfered: ${snapshot.bytesTransferred}`);
         }
 
-        const taskCompleted = snapshot => {
-            snapshot.ref.getDownloadURL().then((snapshot)=>{
+        const taskCompleted = () => {
+            task.snapshot.ref.getDownloadURL().then((snapshot)=>{
+                savePostData(snapshot);
                 console.log(snapshot);
             })
         }
@@ -34,8 +35,23 @@ export default function SaveImage(props) {
             console.log(snapshot);
         }
 
-        task.on("state_changed", taskProgress, taskCompleted, taskError);
-        
+        task.on("state_changed", taskProgress, taskError, taskCompleted);
+
+    }
+
+    const savePostData = (downloadURL) => {
+        firebase
+        .firestore()
+        .collection('posts')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('userPosts')
+        .add({
+            downloadURL,
+            caption, 
+            creation: firebase.firestore().FieldValue.serverTimeStamp()
+        }).then((function(){
+            navigation.popToTop();
+        }))
     }
 
     return (
