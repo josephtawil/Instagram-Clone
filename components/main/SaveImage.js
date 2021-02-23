@@ -48,7 +48,7 @@ export default function SaveImage(props, {navigation}) {
         .add({
             downloadURL,
             caption, 
-            creation: firebase.firestore().FieldValue.serverTimeStamp()
+            creation: firebase.firestore.FieldValue.serverTimeStamp()
         }).then((function(){
             navigation.popToTop();
         }))
